@@ -11,9 +11,15 @@
 [xld-sybase-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xld-sybase-plugin/total.svg
 
 ## Preface
+The Sybase plugin allows you to create a Sybase database client, and Sybase database deployable, to deploy Sybase SQL code.
 
 ## Overview
 
 ## Installation
+Download the version of the plugin from the [Releases](https://github.com/xebialabs-community/xld-sybase-plugin/releases) tab, and install in your <XL_DEPLOY>/plugins directory.  Restart XL Deploy.
 
 ## References
+
+[Introduction to SQL Database Plugin](https://docs.xebialabs.com/xl-deploy/concept/database-plugin.html)
+
+[Extend the XL Deploy Database plugin](https://docs.xebialabs.com/xl-deploy/how-to/extend-the-xl-deploy-database-plugin.html)
