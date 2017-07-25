@@ -1,0 +1,13 @@
+language: java
+sudo: false
+deploy:
+  provider: releases
+  file: build/libs/xld-sybase-plugin-1.0.0-beta.jar
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
+    repo: xebialabs-community/xld-sybase-plugin
+  api_key:
+    secure:
+      secure: Q34SqegI6zZrRlG/FPuBjzwdJHZqjNyXAWahoVk2OSeOaDqLYqJACFfExunhAILvzlFKf9qmgP1s1M6CjHcZVWvyNTVZ1cEaR0e3PN4oZfl5zml/uaCNDmPLhbFvk3QsEmhwxMDoDgKZ2i3W4KsY6hZRNzSp5v/PX3QubQtJZfsFn4vxL+oszdfVhHDUC+cHaRNjwPpObI6ErZVoznSrSUCW1024rUkd9naK9duUD5T157ZLOq2L20okxt8x8w/GHLiU+ZCPVhN4b7ybnSMtaL/tkGr7RKJvRNHcOBnLNUFQOwtXJINBEkcdvfWKhD39VFobex0PQ4rX4dgvSeJHHTbum2nsKKte+Sc0UTnfhaDbYAlFwJBLJaGsC55iMzWh7UJyLDuzo4TI5DQpFz1lZf9mCy8En+b8aSesTILQm6BZiGtPgE6PmGcRwyR+Qk3M7KLy1AI++f63iHhqzKEgv6p1+nwyVFneH8OJ93ah2AIZ/R0+caxIJ4oVk00Kc5JHAl9H+iAAKVaktQsJzVqE+YuId7AAFrwR3ZNKDzfzfEzqP9YQIh48+/ETgEzl/qumHcZDzSBixBf6LN9jHk5Du1vKnJg7HKiq9nSm9ls8iJXNpwR6ua/XYkfnr7GzXG+3rgPIDnxZ8uGasOA6X6WWPJa3rN/WkzNcXFPRbNl6fJs=
