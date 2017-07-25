@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<synthetic xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+
+    <type type="sql.SybaseClient" extends="sql.SqlClient" description="Sybase DBISQL client">
+        <property name="clientWrapperScript" hidden="true" default="sql/SybaseClient" />
+
+        <property name="sybHome" description="The directory that contains the DBISQL installation" />
+        <property name="dbName" description="The Sybase DB to connect to" />
+        <property name="engName" description="The Sybase Eng to connect to" default="devquic"/>
+        <property name="address" description="The database IP address" default="localhost" />
+        <property name="port" description="The TCPIP Port to connect to" />
+    </type>
+</synthetic>
