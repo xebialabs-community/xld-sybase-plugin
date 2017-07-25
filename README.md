@@ -15,6 +15,7 @@ The Sybase plugin allows you to create a Sybase database client, and Sybase data
 
 ## Overview
 
+
 ## Installation
 Download the version of the plugin from the [Releases](https://github.com/xebialabs-community/xld-sybase-plugin/releases) tab, and install in your <XL_DEPLOY>/plugins directory.  Restart XL Deploy.
 
