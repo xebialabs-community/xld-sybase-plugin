@@ -14,10 +14,23 @@
 The Sybase plugin allows you to create a Sybase database client, and Sybase database deployable, to deploy Sybase SQL database.
 
 ## Overview
-This Sybase SQL plugin works the same as all other SQL deployments.  
+This Sybase SQL plugin works the same as all other SQL deployments.  For each SQL file in your SQL deployable, a wrapper.sql file is created to ensure proper error handling.  This wrapper.sql file is then passed into the SQL database client, with the appropriate flags.  (ex/ host, port, username, password, etc) 
+
+For this Sybase plugin, the actual command *(using Freemarker replacement at runtime)* is:
+
+`"${deployed.container.sybHome}\bin\dbisql" -host ${deployed.container.address} -port ${deployed.container.port} -c "${cmn.lookup('additionalOptions')!} uid=${cmn.lookup('username')};pwd=${cmn.lookup('password')};dbn=${deployed.container.dbName};eng=${deployed.container.engName};" @wrapper.sql`
+
+To use the plugin, you:
+
+1. Create a sql.SybaseClient under Infrastructure.
+2. Add the sql.SybaseClient into target Environment definition.
+3. Create an application, with a sql.SqlScripts deployable.
+
+You can now execute a Sybase database deployment.
 
 ## Installation
-Download the version of the plugin from the [Releases](https://github.com/xebialabs-community/xld-sybase-plugin/releases) tab, and install in your <XL_DEPLOY>/plugins directory.  Restart XL Deploy.
+1. Download the version of the plugin from the [Releases](https://github.com/xebialabs-community/xld-sybase-plugin/releases) tab, and install in your **XL_DEPLOY/plugins** directory.  
+2. Restart XL Deploy.
 
 ## References
 
