@@ -11,12 +11,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 <synthetic xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
 
-    <type type="sql.SybaseClient" extends="sql.SqlClient" description="Sybase DBISQL client">
+    <type type="sql.SybaseClient" extends="sql.SqlClient" description="Sybase ISQL client">
         <property name="clientWrapperScript" hidden="true" default="sql/SybaseClient" />
-
-        <property name="sybHome" description="The directory that contains the DBISQL installation" />
+        <property name="username" required="false" description="If set, the user name to use, and none is set on the deployed sql.ExecutedSqlScripts" />
+        <property name="password" required="false" password="true" description="If set, the password to use, and none is set on the deployed sql.ExecutedSqlScripts" />
+        <property name="additionalOptions" required="false" size="medium" description="Specify additional options to be passed to the command-line SQL client" />
+        <property name="sybHome" description="The directory that contains the ISQL installation" />
         <property name="dbName" description="The Sybase DB to connect to" />
-        <property name="engName" description="The Sybase Eng to connect to" default="devquic"/>
         <property name="address" description="The database IP address" default="localhost" />
         <property name="port" description="The TCPIP Port to connect to" />
     </type>

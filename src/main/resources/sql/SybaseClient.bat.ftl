@@ -25,10 +25,8 @@ endlocal
 exit /B 1
 <#else>
 cd ${deployed.file.path}
-echo WHENEVER SQLERROR EXIT 1 ROLLBACK; >> wrapper.sql
-echo WHENEVER OSERROR EXIT 2 ROLLBACK; >> wrapper.sql
-echo @"${sqlScriptToExecute}" >> wrapper.sql
-"${deployed.container.sybHome}\bin\dbisql" -host ${deployed.container.address} -port ${deployed.container.port} -c "${cmn.lookup('additionalOptions')!} uid=${cmn.lookup('username')};pwd=${cmn.lookup('password')};dbn=${deployed.container.dbName};eng=${deployed.container.engName};" @wrapper.sql
+
+"${deployed.container.sybHome}\bin\isql" -S ${deployed.container.address} -D ${deployed.container.dbName} -U "${cmn.lookup('additionalOptions')!}${cmn.lookup('username')}" -P "${cmn.lookup('additionalOptions')!}${cmn.lookup('password')}" --retserverror -i @"${sqlScriptToExecute}"
 
 set RES=%ERRORLEVEL%
 if not %RES% == 0 (

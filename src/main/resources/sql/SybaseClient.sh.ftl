@@ -23,10 +23,8 @@ exit 1
 echo 'ERROR: password not specified! Specify it in either SqlScripts or its SybaseClient container'
 exit 1
 <#else>
-# Connect to sybase - dbisql -c "uid=DBA;pwd=sql;eng=SERV1_iqdemo;links=tcpip(host=SERV2;port=1234)"
-"${deployed.container.sybHome}/bin/dbisql" -c ${cmn.lookup('additionalOptions')!} uid=${cmn.lookup('username')};pwd=${cmn.lookup('password')};eng=${deployed.container.dbName};links=tcpip(host=${deployed.container.address};port=${deployed.container.port})" <<END_OF_WRAPPER
-        WHENEVER SQLERROR EXIT 1 ROLLBACK;
-        WHENEVER OSERROR EXIT 2 ROLLBACK;
+# Connect to sybase - isql -c "uid=DBA;pwd=sql;eng=SERV1_iqdemo;links=tcpip(host=SERV2;port=1234)"
+"${deployed.container.sybHome}/bin/isql" -c ${cmn.lookup('additionalOptions')!} uid=${cmn.lookup('username')};pwd=${cmn.lookup('password')};eng=${deployed.container.dbName};links=tcpip(host=${deployed.container.address};port=${deployed.container.port})" <<END_OF_WRAPPER
         @"${step.uploadedArtifactPath}"
 END_OF_WRAPPER
 

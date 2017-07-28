@@ -16,9 +16,20 @@ The Sybase plugin allows you to create a Sybase database client, and Sybase data
 ## Overview
 This Sybase SQL plugin works the same as all other SQL deployments.  For each SQL file in your SQL deployable, a wrapper.sql file is created to ensure proper error handling.  This wrapper.sql file is then passed into the SQL database client, with the appropriate flags.  (ex/ host, port, username, password, etc) 
 
-For this Sybase plugin, the actual command *(using Freemarker replacement at runtime)* is:
+For this Sybase plugin, the following flags are passed into ISQL:
 
-`"${deployed.container.sybHome}\bin\dbisql" -host ${deployed.container.address} -port ${deployed.container.port} -c "${cmn.lookup('additionalOptions')!} uid=${cmn.lookup('username')};pwd=${cmn.lookup('password')};dbn=${deployed.container.dbName};eng=${deployed.container.engName};" @wrapper.sql`
+	-S server_name
+	-D database
+	-U username
+	-P password
+	-i inputfile
+
+ref. [Sybase ISQL documentation](http://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.infocenter.dc34237.1500/html/mvsinst/CIHHFDGC.htm)
+
+The actual command, using Freemarker replacement at runtime, will be:
+
+`iSQL -S<serverName> -D<databaseName> -U<username> -P<password> -i<inputSQL.sql> -o<outputSQLFile> -w<someWidth> -e`
+
 
 To use the plugin, you:
 
