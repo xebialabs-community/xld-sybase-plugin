@@ -22,13 +22,14 @@ For this Sybase plugin, the following flags are passed into ISQL:
 	-D database
 	-U username
 	-P password
+	--retserverror
 	-i inputfile
 
 ref. [Sybase ISQL documentation](http://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.infocenter.dc34237.1500/html/mvsinst/CIHHFDGC.htm)
 
 The actual command, using Freemarker replacement at runtime, will be:
 
-`iSQL -S<serverName> -D<databaseName> -U<username> -P<password> -i<inputSQL.sql> -o<outputSQLFile> -w<someWidth> -e`
+`"${deployed.container.sybHome}\bin\isql" -S ${deployed.container.address} -D ${deployed.container.dbName} -U "${cmn.lookup('additionalOptions')!}${cmn.lookup('username')}" -P "${cmn.lookup('additionalOptions')!}${cmn.lookup('password')}" --retserverror -i @"${sqlScriptToExecute}"`
 
 
 To use the plugin, you:
