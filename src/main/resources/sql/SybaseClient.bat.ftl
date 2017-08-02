@@ -25,7 +25,7 @@ exit /B 1
 cd ${deployed.file.path}
 
 echo 'execute deployment script'
-${deployed.container.sybHome}\bin\isql.exe -S ${deployed.container.address} -D ${deployed.container.dbName} -U ${cmn.lookup('additionalOptions')!}${cmn.lookup('username')} -P ${cmn.lookup('additionalOptions')!}${cmn.lookup('password')} --retserverror -i @"${sqlScriptToExecute}"
+${deployed.container.sybHome}\bin\isql.exe -S ${deployed.container.address} -D ${deployed.container.dbName} -U ${cmn.lookup('additionalOptions')!}${cmn.lookup('username')} -P ${cmn.lookup('additionalOptions')!}${cmn.lookup('password')} --retserverror -i @${sqlScriptToExecute}
 
 set RES=%ERRORLEVEL%
 if not %RES% == 0 (
