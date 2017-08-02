@@ -13,8 +13,6 @@ setlocal
 <#import "/sql/commonFunctions.ftl" as cmn>
 <#include "/generic/templates/windowsSetEnvVars.ftl">
 
-set SYBASE_HOME="${deployed.container.sybHome}"
-
 <#if !cmn.lookup('username')??>
 echo 'ERROR: username not specified! Specify it in either SqlScripts or its SybaseClient container'
 endlocal
@@ -26,7 +24,7 @@ exit /B 1
 <#else>
 cd ${deployed.file.path}
 
-"${deployed.container.sybHome}\bin\isql" -S ${deployed.container.address} -D ${deployed.container.dbName} -U "${cmn.lookup('additionalOptions')!}${cmn.lookup('username')}" -P "${cmn.lookup('additionalOptions')!}${cmn.lookup('password')}" --retserverror -i @"${sqlScriptToExecute}"
+${deployed.container.sybHome}\bin\isql.exe -S ${deployed.container.address} -D ${deployed.container.dbName} -U ${cmn.lookup('additionalOptions')!}${cmn.lookup('username')} -P ${cmn.lookup('additionalOptions')!}${cmn.lookup('password')} --retserverror -i @"${sqlScriptToExecute}"
 
 set RES=%ERRORLEVEL%
 if not %RES% == 0 (
