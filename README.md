@@ -46,6 +46,6 @@ You can now execute a Sybase database deployment.
 
 ## References
 
-[Introduction to SQL Database Plugin](https://docs.xebialabs.com/xl-deploy/concept/database-plugin.html)
+[Introduction to SQL Database Plugin](https://docs.digital.ai/bundle/devops-deploy-version-v.22.3/page/deploy/concept/database-plugin.html)
 
-[Extend the XL Deploy Database plugin](https://docs.xebialabs.com/xl-deploy/how-to/extend-the-xl-deploy-database-plugin.html)
+[Extend the XL Deploy Database plugin](https://docs.digital.ai/bundle/devops-deploy-version-v.22.3/page/deploy/how-to/extend-the-xl-deploy-database-plugin.html)
