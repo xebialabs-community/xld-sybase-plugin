@@ -14,7 +14,7 @@
 The Sybase plugin allows you to create a Sybase database client, and Sybase database deployable, to deploy Sybase SQL database.
 
 ## Overview
-This Sybase SQL plugin works the same as all other SQL deployments.  For each SQL file in your SQL deployable, a wrapper.sql file is created to ensure proper error handling.  This wrapper.sql file is then passed into the SQL database client, with the appropriate flags.  (ex/ host, port, username, password, etc) 
+This Sybase SQL plugin works the same as all other SQL deployments.  For each SQL file in your SQL deployable, a wrapper.sql file is created to ensure proper error handling.  This wrapper.sql file is then passed into the SQL database client, with the appropriate flags.  (ex/ host, port, username, password, etc)
 
 For this Sybase plugin, the following flags are passed into ISQL:
 
@@ -41,7 +41,7 @@ To use the plugin, you:
 You can now execute a Sybase database deployment.
 
 ## Installation
-1. Download the version of the plugin from the [Releases](https://github.com/xebialabs-community/xld-sybase-plugin/releases) tab, and install in your **XL_DEPLOY/plugins** directory.  
+1. Download the version of the plugin from the [Releases](https://github.com/xebialabs-community/xld-sybase-plugin/releases) tab, and install in your **XL_DEPLOY/plugins** directory or upload to XL Deploy using the pluginmanager.
 2. Restart XL Deploy.
 
 ## References
