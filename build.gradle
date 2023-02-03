@@ -2,6 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
     id "com.xebialabs.xldp" version "1.0.5"
+    id "com.github.hierynomus.license" version "0.15.0"
 }
 
 defaultTasks 'build'
@@ -14,6 +15,13 @@ version='1.0.8'
 repositories {
     mavenLocal()
     mavenCentral()
+}
+
+license {
+    header rootProject.file('License.md')
+    strictCheck false
+    ext.year = Calendar.getInstance().get(Calendar.YEAR)
+    ext.name = 'XEBIALABS'
 }
 
 processResources.configure {
