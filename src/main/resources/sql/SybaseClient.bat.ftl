@@ -14,18 +14,20 @@ setlocal
 <#import "/sql/commonFunctions.ftl" as cmn>
 <#include "/generic/templates/windowsSetEnvVars.ftl">
 
+set SYBASE_HOME="${deployed.container.sybHome}"
+
 <#if !cmn.lookup('username')??>
 echo 'ERROR: username not specified! Specify it in either SqlScripts or its SybaseClient container'
 endlocal
 exit /B 1
-<#elseif !cmn.lookup('password')??>
-echo 'ERROR: password not specified! Specify it in either SqlScripts or its SybaseClient container'
-endlocal
-exit /B 1
 <#else>
-cd ${deployed.file.path}
+<#if !cmn.lookup('password')??>
+echo 'WARNING: password not specified! Specify it in either SqlScripts or its SybaseClient container. Using an empty string as a password is considered insecure.'
+</#if>
 
-${deployed.container.sybHome}\bin\isql.exe -S ${deployed.container.address} -D ${deployed.container.dbName} -U ${cmn.lookup('additionalOptions')!}${cmn.lookup('username')} -P ${cmn.lookup('additionalOptions')!}${cmn.lookup('password')} --retserverror -i ${sqlScriptToExecute}
+cd ${cmn.scriptsPath()}
+
+"${deployed.container.sybHome}\bin\isql.exe" -S ${deployed.container.address} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}
 
 set RES=%ERRORLEVEL%
 if not %RES% == 0 (

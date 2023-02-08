@@ -11,23 +11,22 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 #!/bin/sh
 
 <#import "/sql/commonFunctions.ftl" as cmn>
+<#include "/generic/templates/linuxExportEnvVars.ftl">
 
 SYBASE_HOME="${deployed.container.sybHome}"
 export SYBASE_HOME
 
-# will override the declarations above if SYBASE_HOME or SYBASE_SID are present
-<#include "/generic/templates/linuxExportEnvVars.ftl">
 <#if !cmn.lookup('username')??>
 echo 'ERROR: username not specified! Specify it in either SqlScripts or its SybaseClient container'
 exit 1
-<#elseif !cmn.lookup('password')??>
-echo 'ERROR: password not specified! Specify it in either SqlScripts or its SybaseClient container'
-exit 1
 <#else>
-# Connect to sybase - isql -c "uid=DBA;pwd=sql;eng=SERV1_iqdemo;links=tcpip(host=SERV2;port=1234)"
-"${deployed.container.sybHome}/bin/isql" -c ${cmn.lookup('additionalOptions')!} uid=${cmn.lookup('username')};pwd=${cmn.lookup('password')};eng=${deployed.container.dbName};links=tcpip(host=${deployed.container.address};port=${deployed.container.port})" <<END_OF_WRAPPER
-        @"${step.uploadedArtifactPath}"
-END_OF_WRAPPER
+<#if !cmn.lookup('password')??>
+echo 'WARNING: password not specified! Specify it in either SqlScripts or its SybaseClient container. Using an empty string as a password is considered insecure.'
+</#if>
+
+cd "${cmn.scriptsPath()}"
+
+"${deployed.container.sybHome}/bin/isql" -S ${deployed.container.address} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}
 
 res=$?
 if [ $res != 0 ] ; then

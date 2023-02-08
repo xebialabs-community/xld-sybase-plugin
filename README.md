@@ -22,15 +22,21 @@ For this Sybase plugin, the following flags are passed into ISQL:
 	-D database
 	-U username
 	-P password
+	(Any additionalOptions)
 	--retserverror
 	-i inputfile
 
 ref. [Sybase ISQL documentation](http://infocenter.sybase.com/help/index.jsp?topic=/com.sybase.infocenter.dc34237.1500/html/mvsinst/CIHHFDGC.htm)
 
-The actual command, using Freemarker replacement at runtime, will be:
+The actual command, using Freemarker replacement at runtime, will be for Windows:
 
-`"${deployed.container.sybHome}\bin\isql" -S ${deployed.container.address} -D ${deployed.container.dbName} -U "${cmn.lookup('additionalOptions')!}${cmn.lookup('username')}" -P "${cmn.lookup('additionalOptions')!}${cmn.lookup('password')}" --retserverror -i @"${sqlScriptToExecute}"`
+`"${deployed.container.sybHome}\bin\isql.exe" -S ${deployed.container.address} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}`
 
+The actual command, using Freemarker replacement at runtime, will be for Unix/Linux:
+
+`"${deployed.container.sybHome}/bin/isql" -S ${deployed.container.address} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}`
+
+Note: An empty password or 'NULL' password is allowed bij Sybase but using an empty password is considered insecure.
 
 To use the plugin, you:
 
