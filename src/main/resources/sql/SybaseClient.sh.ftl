@@ -13,8 +13,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 <#import "/sql/commonFunctions.ftl" as cmn>
 <#include "/generic/templates/linuxExportEnvVars.ftl">
 
-SYBASE_HOME="${deployed.container.sybHome}"
-export SYBASE_HOME
+SYBASE="${deployed.container.sybHome}"
+export SYBASE
+SYBASE_OCS="${deployed.container.sybOcs}"
+export SYBASE_OCS
+
 
 <#if !cmn.lookup('username')??>
 echo 'ERROR: username not specified! Specify it in either SqlScripts or its SybaseClient container'
@@ -26,7 +29,8 @@ echo 'WARNING: password not specified! Specify it in either SqlScripts or its Sy
 
 cd "${cmn.scriptsPath()}"
 
-"${deployed.container.sybHome}/bin/isql" -S ${deployed.container.address} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}
+echo "Executing: ${deployed.container.sybHome}/${deployed.container.sybOcs}/bin/isql -S ${deployed.container.address}:${deployed.container.port} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>********</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}"
+"${deployed.container.sybHome}/${deployed.container.sybOcs}/bin/isql" -S ${deployed.container.address}:${deployed.container.port} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}
 
 res=$?
 if [ $res != 0 ] ; then

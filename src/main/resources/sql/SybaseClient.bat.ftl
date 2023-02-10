@@ -14,7 +14,8 @@ setlocal
 <#import "/sql/commonFunctions.ftl" as cmn>
 <#include "/generic/templates/windowsSetEnvVars.ftl">
 
-set SYBASE_HOME="${deployed.container.sybHome}"
+set SYBASE="${deployed.container.sybHome}"
+set SYBASE_OCS="${deployed.container.sybOcs}"
 
 <#if !cmn.lookup('username')??>
 echo 'ERROR: username not specified! Specify it in either SqlScripts or its SybaseClient container'
@@ -27,7 +28,8 @@ echo 'WARNING: password not specified! Specify it in either SqlScripts or its Sy
 
 cd ${cmn.scriptsPath()}
 
-"${deployed.container.sybHome}\bin\isql.exe" -S ${deployed.container.address} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}
+echo "Executing: ${deployed.container.sybHome}\${deployed.container.sybOcs}\bin\isql.exe -S ${deployed.container.address}:${deployed.container.port} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>********</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}"
+"${deployed.container.sybHome}\${deployed.container.sybOcs}\bin\isql.exe" -S ${deployed.container.address}:${deployed.container.port} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}
 
 set RES=%ERRORLEVEL%
 if not %RES% == 0 (

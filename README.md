@@ -30,11 +30,11 @@ ref. [Sybase ISQL documentation](http://infocenter.sybase.com/help/index.jsp?top
 
 The actual command, using Freemarker replacement at runtime, will be for Windows:
 
-`"${deployed.container.sybHome}\bin\isql.exe" -S ${deployed.container.address} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}`
+`"${deployed.container.sybHome}\${deployed.container.sybOcs}\bin\isql.exe" -S ${deployed.container.address}:${deployed.container.port} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}`
 
 The actual command, using Freemarker replacement at runtime, will be for Unix/Linux:
 
-`"${deployed.container.sybHome}/bin/isql" -S ${deployed.container.address} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}`
+`"${deployed.container.sybHome}/${deployed.container.sybOcs}/bin/isql" -S ${deployed.container.address}:${deployed.container.port} -D ${sanitize(deployed.container.dbName)} -U ${sanitize(cmn.lookup('username'))} -P <#if cmn.lookup('password')??>${sanitize(cmn.lookup('password'))}</#if> ${cmn.lookup('additionalOptions')!} --retserverror -i ${sqlScriptToExecute}`
 
 Note: An empty password or 'NULL' password is allowed bij Sybase but using an empty password is considered insecure.
 
@@ -45,6 +45,7 @@ To use the plugin, you:
 3. Create an application, with a sql.SqlScripts deployable.
 
 You can now execute a Sybase database deployment.
+For an example check the examples directory. Here you will find an Infrastructure As Code file to configure your server with the xl(.exe) client and some innocent SQL files to use against your database.
 
 ## Installation
 1. Download the version of the plugin from the [Releases](https://github.com/xebialabs-community/xld-sybase-plugin/releases) tab, and install in your **XL_DEPLOY/plugins** directory or upload to XL Deploy using the pluginmanager.
