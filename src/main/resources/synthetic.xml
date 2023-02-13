@@ -10,6 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 -->
 <synthetic xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
     <type type="sql.SybaseClient" extends="sql.SqlClient" description="Sybase ISQL client">
+        <property name="SybaseClientTestScript"  hidden="true" default="sql/SybaseClientTest" />
         <property name="clientWrapperScript" hidden="true" default="sql/SybaseClient" />
         <property name="username" required="false" description="The Sybase Database user name to use, leave empty if set in the sql.SqlScripts deployable configuration" />
         <property name="password" required="false" password="true" description="The Sybase Database password to use, leave empty if set in the sql.SqlScripts deployable configuration" />
@@ -19,5 +20,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <property name="dbName" description="The Sybase Database to connect to" />
         <property name="address" description="The Sybase Database Hostname or TCP/IP address" default="localhost" />
         <property name="port" description="The Sybase Database TCP/IP Port" />
+        <method name="SybaseClientTest" label="Test Sybase client" description="Test Sybase client installation"/>
     </type>
 </synthetic>
