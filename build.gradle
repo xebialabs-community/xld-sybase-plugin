@@ -10,7 +10,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
-version='1.0.9'
+version='1.0.10'
 
 repositories {
     mavenLocal()
