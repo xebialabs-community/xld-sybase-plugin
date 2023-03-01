@@ -14,8 +14,8 @@ setlocal
 <#import "/sql/commonFunctions.ftl" as cmn>
 <#include "/generic/templates/windowsSetEnvVars.ftl">
 
-set SYBASE="${deployed.container.sybHome}"
-set SYBASE_OCS="${deployed.container.sybOcs}"
+set SYBASE=${deployed.container.sybHome}
+set SYBASE_OCS=${deployed.container.sybOcs}
 
 <#if !cmn.lookup('username')??>
 echo 'ERROR: username not specified! Specify it in either SqlScripts or its SybaseClient container'
