@@ -2,7 +2,7 @@ language: java
 sudo: false
 deploy:
   provider: releases
-  file: build/libs/xld-sybase-plugin-1.0.7.jar
+  file: build/distributions/xld-sybase-plugin-1.0.10.xldp
   skip_cleanup: true
   on:
     all_branches: true

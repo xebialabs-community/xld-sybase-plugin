@@ -1,0 +1,22 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- name: Infrastructure/my_sybaseserver_com
+  type: overthere.SshHost
+  os: UNIX
+  connectionType: INTERACTIVE_SUDO
+  address: my.sybaseserver.com
+  username: OSUser
+  password: OSPassword
+  sudoUsername: sybase
+  children:
+  - name: my_database
+    type: sql.SybaseClient
+    username: DBuser
+    password: DBpassword
+    sybHome: /opt/sybase/ase160_3_8
+    sybOcs: OCS-16_0
+    dbName: DBname
+    address: my.sybaseserver.com
+    port: "8000"
